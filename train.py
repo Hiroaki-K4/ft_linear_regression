@@ -1,5 +1,6 @@
 import argparse
 import visualize_data
+import matplotlib.pyplot as plt
 
 
 def calculate_cost_func(mileage_list, price_list, pred_theta_0, pred_theta_1):
@@ -53,11 +54,10 @@ def train(csv_file_path: str, output_param_path: str):
     init_theta_0 = 0
     init_theta_1 = 0
     learning_rate = 0.001
-    threshold = 0.000001
+    threshold = 0.000000001
 
     mileage_list, price_list = visualize_data.read_data(csv_file_path)
     print(mileage_list, price_list)
-    # TODO: Visualize normalized data
     norm_mileage_list = normalize_range(mileage_list)
     print("norm_mileage_list: ", norm_mileage_list)
     norm_price_list = normalize_range(price_list)
@@ -74,18 +74,29 @@ def train(csv_file_path: str, output_param_path: str):
         pred_theta_0 = pred_theta_0 - learning_rate * grad_0
         pred_theta_1 = pred_theta_1 - learning_rate * grad_1
         cost = calculate_cost_func(norm_mileage_list, norm_price_list, pred_theta_0, pred_theta_1)
-        if abs(old_cost - cost) < threshold:
-        # if cost < threshold:
+        # if abs(old_cost - cost) < threshold:
+        if cost < threshold:
             print("cost: ", cost)
             print("Diff is too small.")
             break
         print("cost: ", cost)
         old_cost = cost
 
+    # TODO: Visualize y=ax+b
+    plt.plot(norm_mileage_list, norm_price_list, 'bo')
+    plt.axis([0, max(norm_mileage_list)+0.1, 0, max(norm_price_list)+0.1])
+    plt.xlabel("Mileage")
+    plt.ylabel("Price")
+    plt.title("Normalized values")
+    plt.show()
+
     print("i: ", i)
     print("pred_theta_0: ", pred_theta_0)
     print("pred_theta_1: ", pred_theta_1)
-    reverse_before_normalization(pred_theta_0, )
+    pred_theta_0 = reverse_before_normalization(pred_theta_0, price_list)
+    pred_theta_1 = reverse_before_normalization(pred_theta_1, mileage_list)
+    print("pred_theta_0: ", pred_theta_0)
+    print("pred_theta_1: ", pred_theta_1)
 
 
 if __name__ == '__main__':
