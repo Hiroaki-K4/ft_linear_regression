@@ -107,7 +107,7 @@ def train(csv_file_path: str, output_param_path: str):
     normalized_point_1 = np.array([(-1) * pred_theta_0 / pred_theta_1, 0])
     norm_line_x = np.array([normalized_point_0[0], normalized_point_1[0]])
     norm_line_y = np.array([normalized_point_0[1], normalized_point_1[1]])
-    norm_graph.plot(norm_line_x, norm_line_y)
+    norm_graph.plot(norm_line_x, norm_line_y, color="red")
 
     norm_graph.plot(norm_mileage_list, norm_price_list, "bo")
     norm_graph.axis([0, max(norm_mileage_list) + 0.1, 0, max(norm_price_list) + 0.1])
@@ -132,7 +132,7 @@ def train(csv_file_path: str, output_param_path: str):
     point_1 = np.array([(-1) * final_pred_theta_0 / final_pred_theta_1, 0])
     line_x = np.array([point_0[0], point_1[0]])
     line_y = np.array([point_0[1], point_1[1]])
-    graph.plot(line_x, line_y)
+    graph.plot(line_x, line_y, color="red")
 
     graph.plot(mileage_list, price_list, "bo")
     graph.axis([0, max(mileage_list) + 10000, 0, max(price_list) + 1000])
