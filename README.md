@@ -6,10 +6,10 @@ For this project, I created a program that predicts the price of a car by using 
 ## Estimate price
 The estimation program will be used to predict the price of a car for a given mileage.
 When you launch the program, it should prompt you for a mileage, and then give you back the estimated price for that mileage. The program will use the following
-hypothesis to predict the price :
+equation to predict the price :
 
 $$
-estimateP rice(mileage) = θ_0 + (θ_1 \times mileage) \tag{1}
+estimatePrice(mileage) = \theta_0 + (\theta_1 \times mileage) \tag{1}
 $$
 
 You can try the process by running the follow command. In the example below, the program will estimate the price of a car with 100000 km.
@@ -21,7 +21,7 @@ python estimate_price.py --mileage 100000 --param_yaml param.yaml
 <br></br>
 
 ## Train with a gradient descent algorithm
-Traing program read dataset file and perform a linear regression on the data.
+Training program read dataset file and perform a linear regression on the data.
 Once the linear regression has completed, it will save the variables $\theta_0$ and $\theta_1$ for use in the estimation program.
 The training procedure is as follows.
 
