@@ -9,13 +9,13 @@ When you launch the program, it should prompt you for a mileage, and then give y
 hypothesis to predict the price :
 
 $$
-estimateP rice(mileage) = θ_0 + (θ_1 \times mileage)
+estimateP rice(mileage) = θ_0 + (θ_1 \times mileage) \tag{1}
 $$
 
-You can try the process by running the follow command.
+You can try the process by running the follow command. In the example below, the program will estimate the price of a car with 100000 km.
 
 ```bash
-python estimate_price.py --mileage 30 --param_yaml param.yaml
+python estimate_price.py --mileage 100000 --param_yaml param.yaml
 ```
 
 <br></br>
@@ -29,7 +29,7 @@ The training procedure is as follows.
 If I used the values of the data as they were used for training, the training did not converge well. Therefore, I normalized the data and used it for training. I used [**scaling to a range**](https://developers.google.com/machine-learning/data-prep/transform/normalization#scaling-to-a-range) to normalize data.
 
 $$
-x=(x\prime - x_{min})/(x_{max}-x_{min})
+x=(x\prime - x_{min})/(x_{max}-x_{min}) \tag{2}
 $$
 
 Scaling to a range is a good choice when both of the following conditions are met:
@@ -37,13 +37,50 @@ Scaling to a range is a good choice when both of the following conditions are me
  - Your data is approximately uniformly distributed across that range.
 
 ### **2. Calculate gradient**
+The cost function to be minimized is as follows. $m$ is the number of data.
+
+$$
+\frac{1}{m}\sum_{i=0}^{m-1}(price[i]-estimatePrice(mileage[i]))^2
+\tag{3}
+$$
+
+The equation differentiated by each of $\theta_0$ and $=\theta_1$ is as follows.
+
+$$
+\begin{align*}
+D_{\theta_0}&=\frac{\partial (costFunction)}{\partial_{\theta_0}}=\frac{\partial}{\partial_{\theta_0}}\left(\frac{1}{m}\sum_{i=0}^{m-1}(y_i-(\theta_1x_i+\theta_0))^2\right) \\
+&=\frac{1}{m}\frac{\partial}{\partial_{\theta_0}}\left(\sum_{i=0}^{m-1}(y_i^2+\theta_1^2x_i^2+\theta^2+2\theta_1x_i\theta_0-2y_i\theta_1x_i-2y_i\theta_0)\right) \\
+&=\frac{-2}{m}\sum_{i=0}^{m-1}(price[i]-estimatePrice(mileage[i]))
+\end{align*} \tag{4}
+$$
+
+$$
+\begin{align*}
+D_{\theta_1}&=\frac{\partial (costFunction)}{\partial_{\theta_1}}=\frac{\partial}{\partial_{\theta_1}}\left(\frac{1}{m}\sum_{i=0}^{m-1}(y_i-(\theta_1x_i+\theta_0))^2\right) \\
+&=\frac{1}{m}\frac{\partial}{\partial_{\theta_1}}\left(\sum_{i=0}^{m-1}(y_i^2+\theta_1^2x_i^2+\theta^2+2\theta_1x_i\theta_0-2y_i\theta_1x_i-2y_i\theta_0)\right) \\
+&=\frac{-2}{m}\sum_{i=0}^{m-1}x_i(price[i]-estimatePrice(mileage[i]))
+\end{align*} \tag{5}
+$$
 
 ### **3. Update parameter with learning rate**
+The values of $\theta_0$ and $\theta_1$ are updated using the learning rate value $L$.
+
+$$
+\theta_0=\theta_0-LD_{\theta_0} \\
+\theta_1=\theta_1-LD_{\theta_1} \tag{6}
+$$
 
 ### **4. Calculate cost function**
+We will repeat this process until the cost function Eq(3) is very small (ideally 0).
 
 ### **5. Convert normalized value back to original value**
+Since the $\theta_0$ and $\theta_1$ obtained are values in normalized data, they must be restored to the original data scale.
 
+$$
+x_{original}=x_{norm}(x_{max}-x_{min})+x_{min} \tag{7}
+$$
+
+<br></br>
 
 You can try the process by running the follow command.
 
