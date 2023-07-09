@@ -66,7 +66,7 @@ $$
 The values of $\theta_0$ and $\theta_1$ are updated using the learning rate value $L$.
 
 $$
-\theta_0=\theta_0-LD_{\theta_0} \\
+\theta_0=\theta_0-LD_{\theta_0},
 \theta_1=\theta_1-LD_{\theta_1} \tag{6}
 $$
 
