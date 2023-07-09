@@ -22,7 +22,7 @@ python estimate_price.py --mileage 100000 --param_yaml param.yaml
 
 ## Train with a gradient descent algorithm
 Traing program read dataset file and perform a linear regression on the data.
-Once the linear regression has completed, it will save the variables theta0 and theta1 for use in the estimation program.
+Once the linear regression has completed, it will save the variables $\theta_0$ and $\theta_1$ for use in the estimation program.
 The training procedure is as follows.
 
 ### **1. Normalize range**
@@ -90,7 +90,7 @@ python train.py --csv_file_path data.csv --output_param_path param.yaml
 
 The graph of result is below image.
 
-<img src='images/result_graph.png' width='600'>
+<img src='images/result_graph.png' width='700'>
 
 <br></br>
 
