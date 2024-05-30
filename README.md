@@ -1,6 +1,9 @@
 # ft_linear_regression
 For this project, I created a program that predicts the price of a car by using a linear function train with a gradient descent algorithm.
 
+## Related article I wrote
+- [Implementation of Linear Regression Algorithms](https://medium.com/@hirok4/implementation-of-linear-regression-algorithms-4f1844ad4600)
+
 <br></br>
 
 ## Estimate price
